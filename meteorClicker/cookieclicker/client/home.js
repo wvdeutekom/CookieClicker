@@ -10,3 +10,9 @@ Template.clicker.events ({
 		});
 	}
 });
+
+Template.clicker.helpers ({
+	counter: function () {
+		return Cookies.find({_id: "COOKIE"});
+	}
+})
