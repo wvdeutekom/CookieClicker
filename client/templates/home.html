@@ -68,7 +68,9 @@
 
 <template name="building">
     <p>
-        <button type="button" id="{{_id}}">Buy {{name}} <span>{{hasBuildings _id }}</span></button>
+        <h4>{{name}}</h4>
+        <button type="button" class="building-buy-button uk-button uk-button-success" {{isEnabled}} id="{{_id}}" ><i class="uk-icon-shopping-cart"></i> Buy </button>
+        <span class="uk-badge">{{hasBuildings _id }}</span>
     </p>
 </template>
 
