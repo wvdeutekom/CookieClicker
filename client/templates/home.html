@@ -10,7 +10,14 @@
   	<div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
 		{{> mainMenu}}
 	    <h1>Welcome to Meteor!</h1>
-		{{> clicker}}
+        <div class="grid">
+            <div class="uk-width-1-3">
+                {{> clicker}}
+            </div>
+            <div class="uk-width-1-3">
+                {{> store}}
+            </div>
+        </div>
     </div>
 	{{> mobileMenu}}  
 </template>
@@ -50,4 +57,19 @@
         </div>
     </div>
 </template>
+
+<template name="store">
+    <h2>Store</h2>
+
+    {{#each buildings}}
+        {{> building}}
+    {{/each}}
+</template>
+
+<template name="building">
+    <p>
+        <button type="button" id="{{_id}}">Buy {{name}}</button>
+    </p>
+</template>
+
 

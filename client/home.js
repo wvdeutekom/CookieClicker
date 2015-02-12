@@ -15,4 +15,10 @@ Template.clicker.helpers ({
 	counter: function () {
 		return Cookies.findOne({_id: "COOKIE"}).current;
 	}
+});
+
+Template.store.helpers ({
+	buildings: function () {
+		return Buildings.find();
+	}
 })
