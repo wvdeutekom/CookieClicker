@@ -21,4 +21,9 @@ Template.store.helpers ({
 	buildings: function () {
 		return Buildings.find();
 	}
-})
+});
+Template.building.helpers ({
+	hasBuildings: function () {
+		return HasBuildings.findOne({ cookieId: "COOKIE", buildingId: parseInt(this._id) }).amount;
+	}
+});
