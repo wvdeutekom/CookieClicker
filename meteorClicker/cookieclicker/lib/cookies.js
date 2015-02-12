@@ -6,7 +6,7 @@ HasBuildings = new Mongo.Collection("hasBuildings");
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
-  	if(Cookies.find().count() === 0) {
+  	if(Cookies.findOne({_id: "COOKIE"}) === undefined) {
   		Cookies.insert({
   			_id: "COOKIE",
   			total: 0,
