@@ -14,6 +14,9 @@ Template.clicker.events ({
 Template.clicker.helpers ({
 	counter: function () {
 		return Cookies.findOne({_id: "COOKIE"}).current;
+	},
+	total: function () {
+		return Cookies.findOne({_id: "COOKIE"}).total;
 	}
 });
 
