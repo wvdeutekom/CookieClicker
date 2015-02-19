@@ -70,7 +70,7 @@
 <template name="building">
     <p>
         <h4>{{name}} (adds {{income}} cookies per second)</h4>
-        <button type="button" class="building-buy-button uk-button uk-button-success" {{isEnabled}} id="{{_id}}" ><i class="uk-icon-shopping-cart"></i> Buy </button>
+        <button type="button" class="building-buy-button uk-button uk-button-success" {{isEnabled}} id="{{_id}}" ><i class="uk-icon-shopping-cart"></i> Buy for {{cost}} cookies</button>
         <span class="uk-badge">{{hasBuildings _id }}</span>
     </p>
 </template>
