@@ -41,9 +41,9 @@ Template.store.helpers ({
 
 		Meteor.call('hasBuildingsForID', 4, function(err, response){
 	      if (err) {
-	        alert("error: "+ err);
+	        // alert("error: "+ err);
 	      } else{
-	        alert("success " + response);
+	        // alert("success " + response);
 	      }
 	    }); 
 
@@ -89,4 +89,7 @@ Template.building.helpers ({
 	}
 });
 
-
+// At the bottom of the client code
+Accounts.ui.config({
+  passwordSignupFields: "USERNAME_ONLY"
+});

@@ -9,3 +9,6 @@ autopublish
 insecure
 jquery
 mrt:uikit
+accounts-ui
+accounts-password
+accounts-facebook
