@@ -89,7 +89,30 @@ Template.building.helpers ({
 	}
 });
 
+
+
 // At the bottom of the client code
 Accounts.ui.config({
-  passwordSignupFields: "USERNAME_ONLY"
+  passwordSignupFields: 'USERNAME_AND_OPTIONAL_EMAIL'
 });
+
+// // Support for playing D&D: Roll 3d6 for dexterity
+// Accounts.onCreateUser(function(options, user) {
+
+// 	window.alert("onCreateUser");
+
+// 	UIkit.notify('achievement: looks like you did it bro.', 'succes');
+// 	// We still want the default hook's 'profile' behavior.
+// 	if (options.profile)
+// 	user.profile = options.profile;
+// 	return false;
+// });
+
+// Accounts.onLogin(function() {
+	// window.alert("onLogin");
+	// UIkit.notify('welcome back', 'succes');
+// });
+// Accounts.onLogin(function(user) {
+	// window.alert("onLogin");
+	// UIkit.notify('welcome back', 'succes');
+// });
