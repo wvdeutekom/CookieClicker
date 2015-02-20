@@ -31,14 +31,24 @@ Template.store.helpers ({
 			return;
 		};
 
-		cursor.forEach(function (building) {
-			// window.alert(building._id);
-			// var buildingTypeIncome = building.income * building.
-			totalIncome += building.income;
-		})
+		// cursor.forEach(function (building) {
+		// 	// window.alert(building._id);
+		// 	// var buildingTypeIncome = building.income * building.
+		// 	totalIncome += building.income;
+		// })
 
-		//for eacht building, add income to totalIncome
-		return totalIncome;
+		//for each building, add income to totalIncome
+
+		Meteor.call('hasBuildingsForID', 4, function(err, response){
+	      if (err) {
+	        alert("error: "+ err);
+	      } else{
+	        alert("success " + response);
+	      }
+	    }); 
+
+
+		return 61;
 	}
 });
 Template.building.events ({
@@ -69,7 +79,9 @@ Template.building.events ({
 });
 Template.building.helpers ({
 	hasBuildings: function () {
-		return Meteor.call('hasBuildingsForID', this._id);
+		Meteor.call('hasBuildingsForID', this._id function(err, response) {
+			return 5;
+		});
 		// return HasBuildings.findOne({ cookieId: "COOKIE", buildingId: parseInt(this._id) }).amount;
 	},
 	isEnabled: function () {
