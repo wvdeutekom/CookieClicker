@@ -79,7 +79,7 @@ Template.building.events ({
 });
 Template.building.helpers ({
 	hasBuildings: function () {
-		Meteor.call('hasBuildingsForID', this._id function(err, response) {
+		Meteor.call('hasBuildingsForID', this._id, function(err, response) {
 			return 5;
 		});
 		// return HasBuildings.findOne({ cookieId: "COOKIE", buildingId: parseInt(this._id) }).amount;
