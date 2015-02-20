@@ -41,9 +41,9 @@ Template.store.helpers ({
 
 		Meteor.call('hasBuildingsForID', 4, function(err, response){
 	      if (err) {
-	        alert("error: "+ err);
+	        // alert("error: "+ err);
 	      } else{
-	        alert("success " + response);
+	        // alert("success " + response);
 	      }
 	    }); 
 
