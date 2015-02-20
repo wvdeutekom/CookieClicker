@@ -1,11 +1,14 @@
 Template.clicker.events ({
 	"click #clickerup": function () {
-		Cookies.update({
-			_id: "COOKIE"},
-		{
+		if(Meteor.user()){
+			var squad = Squad.findOne({_id: Meteor.user().squadId});
+		} else {
+			var squad = Squad.findOne({name: "Anonymous"});
+		}
+		Squad.update({_id: squad._id}, {
 			$inc: {
-				current: 1,
-				total: 1
+				cookies_current: 1,
+				cookies_total: 1
 			}
 		});
 	}
@@ -13,10 +16,20 @@ Template.clicker.events ({
 
 Template.clicker.helpers ({
 	counter: function () {
-		return Cookies.findOne({_id: "COOKIE"}).current;
+		if(Meteor.user()){
+			var squad = Squad.findOne({_id: Meteor.user().squadId});
+		} else {
+			var squad = Squad.findOne({name: "Anonymous"});
+		}
+		return squad.cookies_current;
 	},
 	total: function () {
-		return Cookies.findOne({_id: "COOKIE"}).total;
+		if(Meteor.user()){
+			var squad = Squad.findOne({_id: Meteor.user().squadId});
+		} else {
+			var squad = Squad.findOne({name: "Anonymous"});
+		}
+		return squad.cookies_total;
 	}
 });
 
@@ -25,64 +38,47 @@ Template.store.helpers ({
 		return Buildings.find();
 	},
 	cookieincome: function () {
-		var totalIncome = 0;
-		var cursor = Buildings.find();
-		if (!cursor.count()) {
-			return;
-		};
-
-		// cursor.forEach(function (building) {
-		// 	// window.alert(building._id);
-		// 	// var buildingTypeIncome = building.income * building.
-		// 	totalIncome += building.income;
-		// })
-
-		//for each building, add income to totalIncome
-
-		Meteor.call('hasBuildingsForID', 4, function(err, response){
-	      if (err) {
-	        // alert("error: "+ err);
-	      } else{
-	        // alert("success " + response);
-	      }
-	    }); 
-
-
-		return 61;
+		var amount = 0;
+		if(Meteor.user()){
+			var squad = Squad.findOne({_id: Meteor.user().squadId});
+		} else {
+			var squad = Squad.findOne({name: "Anonymous"});
+		}
+		for(var i in squad.buildings) {
+		  	amount += Math.round(squad.buildings[i].amount * Buildings.findOne({_id: squad.buildings[i].buildingId}).income);
+		}
+		return amount;
 	}
 });
 Template.building.events ({
 	"click .building-buy-button": function () {
-		if(Cookies.findOne({_id: "COOKIE"}).current >= this.cost){
-			Cookies.update({
-				_id: "COOKIE"
-			},
-			{
-				$inc: {
-					current: -this.cost
-				}
-			});
-			var temp = HasBuildings.findOne({
-				cookieId: "COOKIE",
-				buildingId: parseInt(this._id)
-			});
-			HasBuildings.update({
-				_id: temp._id
-			},
-			{
-				$inc: {
-					amount: 1
-				}
-			});
+		if(Meteor.user()){
+			var squad = Squad.findOne({_id: Meteor.user().squadId});
+		} else {
+			var squad = Squad.findOne({name: "Anonymous"});
+		}
+		if(squad.cookies_current >= this.cost){
+			console.log('buy '+this.name);
+			// squad.update({_id: squad._id},{
+			// 	$inc: {
+			// 		cookies_current: -this.cost
+			// 	}
+			// });
 		}
 	}
 });
 Template.building.helpers ({
 	hasBuildings: function () {
-		Meteor.call('hasBuildingsForID', this._id, function(err, response) {
-			return 5;
-		});
-		// return HasBuildings.findOne({ cookieId: "COOKIE", buildingId: parseInt(this._id) }).amount;
+		if(Meteor.user()){
+			var squad = Squad.findOne({_id: Meteor.user().squadId});
+		} else {
+			var squad = Squad.findOne({name: "Anonymous"});
+		}
+		for(var i in squad.buildings) {
+			if(squad.buildings[i].buildingId == this._id){
+				return squad.buildings[i].amount;
+			}
+		}
 	},
 	isEnabled: function () {
 		return (this.affordable())?'enabled':'disabled';

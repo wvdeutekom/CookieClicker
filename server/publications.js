@@ -1,7 +1,4 @@
 Meteor.methods({
-	hasBuildingsForID: function (buildingID) {
-	   return HasBuildings.findOne({ cookieId: "COOKIE", buildingId: parseInt(buildingID)}).amount;
-	},
 	createSquad: function(name) {
 		var squad = {
 			name: name,
@@ -29,8 +26,8 @@ Meteor.methods({
 		} else {
 			var squad = Squad.findOne({name: "Anonymous"});
 		}
-		for(var squadHasBuilding in squad.buildings) {
-		  	amount += Math.round(squadHasBuilding.amount * Buildings.findOne({_id: squadHasBuilding.buildingId}).income);
+		for(var i in squad.buildings) {
+		  	amount += Math.round(squad.buildings[i].amount * Buildings.findOne({_id: squad.buildings[i].buildingId}).income);
 		}
 		Squad.update({_id: squad._id},{
 			$inc: {
