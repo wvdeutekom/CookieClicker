@@ -23,6 +23,22 @@ Template.clicker.helpers ({
 Template.store.helpers ({
 	buildings: function () {
 		return Buildings.find();
+	},
+	cookieincome: function () {
+		var totalIncome = 0;
+		var cursor = Buildings.find();
+		if (!cursor.count()) {
+			return;
+		};
+
+		cursor.forEach(function (building) {
+			// window.alert(building._id);
+			// var buildingTypeIncome = building.income * building.
+			totalIncome += building.income;
+		})
+
+		//for eacht building, add income to totalIncome
+		return totalIncome;
 	}
 });
 Template.building.events ({
@@ -53,9 +69,12 @@ Template.building.events ({
 });
 Template.building.helpers ({
 	hasBuildings: function () {
-		return HasBuildings.findOne({ cookieId: "COOKIE", buildingId: parseInt(this._id) }).amount;
+		return Meteor.call('hasBuildingsForID', this._id);
+		// return HasBuildings.findOne({ cookieId: "COOKIE", buildingId: parseInt(this._id) }).amount;
 	},
 	isEnabled: function () {
 		return (this.affordable())?'enabled':'disabled';
 	}
 });
+
+
