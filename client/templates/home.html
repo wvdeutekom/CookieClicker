@@ -9,12 +9,12 @@
 <template name="home">
   	<div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
 		{{> mainMenu}}
-	    <h1>Welcome to the cookie battle net</h1>
+	    <h1>Welcome to CookieBattle.net</h1>
         <div class="uk-grid">
             <div class="uk-width-1-3">
                 {{> clicker}}
             </div>
-            <div class="uk-width-1-3">
+            <div class="uk-width-2-3">
                 {{> store}}
             </div>
         </div>
@@ -26,6 +26,7 @@
   <a id="clickerup" class="uk-animation-scale" data-docs-animation="uk-animation-scale"><img src="img/cookie.png"/></a>
   <p>You currently have {{counter}} cookies!</p>
   <p>And you've create a total of {{total}} cookies!</p>
+  <p>Income: {{income}} cookies per second</p>
 </template>
 
 <template name="mainMenu">
@@ -60,19 +61,40 @@
 </template>
 
 <template name="store">
-    <h2>Store</h2>
-    {{cookieincome}} cookies per second
+    <h2>Recruitment Agency</h2>
+    <div class="uk-grid uk-grid-medium" data-uk-grid-margin data-uk-grid-match="{target:'.uk-panel'}">
     {{#each buildings}}
         {{> building}}
     {{/each}}
+    </div>
 </template>
 
 <template name="building">
-    <p>
-        <h4>{{name}} (adds {{income}} cookies per second)</h4>
-        <button type="button" class="building-buy-button uk-button uk-button-success" {{isEnabled}} id="{{_id}}" ><i class="uk-icon-shopping-cart"></i> Buy for {{cost}} cookies</button>
-        <span class="uk-badge">{{hasBuildings _id }}</span>
-    </p>
+    <div class="uk-width-medium-1-2 uk-margin-bottom">
+        <div class="uk-panel uk-panel-box">
+            <div class="uk-width-1-2 uk-float-left">
+                <div class="uk-thumbnail">
+                    <img src="img/buildings/{{image}}" alt="{{name}}">
+                    <div class="uk-thumbnail-caption">{{name}}</div>
+                </div>
+            </div>
+            <div class="uk-width-1-2 uk-float-left" style="padding:10px;">
+                <p>{{description}}</p>
+            </div>
+            <div class="uk-clearfix"></div>
+            <div class="uk-width-1-1 uk-alert uk-clearfix">
+                <div class="uk-width-3-4 uk-text-left uk-float-left">
+                    <p>Generates {{income}} cookies per second</p>
+                    <p>Hired: <span class="uk-badge">{{hasBuildings _id }}</span></p>
+                    <p>Salary: <span class="uk-badge uk-badge-danger">{{cost}}</span> cookies</p>
+                </div>
+                <div class="uk-width-1-4 uk-float-left">
+                    <button type="button" class="building-buy-button uk-margin-bottom uk-button uk-button-success" {{isBuyEnabled}} id="    {{_id}}" ><i class="uk-icon-thumbs-up"></i> Hire</button>
+                    <button type="button" class="building-sell-button uk-margin-bottom uk-button uk-button-danger" {{isSellEnabled}} id="    {{_id}}" ><i class="uk-icon-thumbs-down"></i> Sack</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 

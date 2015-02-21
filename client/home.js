@@ -30,14 +30,8 @@ Template.clicker.helpers ({
 			var squad = Squad.findOne({name: "Anonymous"});
 		}
 		return squad.cookies_total;
-	}
-});
-
-Template.store.helpers ({
-	buildings: function () {
-		return Buildings.find();
 	},
-	cookieincome: function () {
+	income: function () {
 		var amount = 0;
 		if(Meteor.user()){
 			var squad = Squad.findOne({_id: Meteor.user().squadId});
@@ -48,6 +42,12 @@ Template.store.helpers ({
 		  	amount += Math.round(squad.buildings[i].amount * Buildings.findOne({_id: squad.buildings[i].buildingId}).income);
 		}
 		return amount;
+	}
+});
+
+Template.store.helpers ({
+	buildings: function () {
+		return Buildings.find();
 	}
 });
 Template.building.events ({
@@ -80,8 +80,11 @@ Template.building.helpers ({
 			}
 		}
 	},
-	isEnabled: function () {
+	isBuyEnabled: function () {
 		return (this.affordable())?'enabled':'disabled';
+	},
+	isSellEnabled: function () {
+		return (this.sellable())?'enabled':'disabled';
 	}
 });
 
