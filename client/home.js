@@ -78,7 +78,7 @@ Template.building.events ({
 				});
 				// UIkit.notify("<i class='uk-icon-check'></i> Message with an icon...");
 				// UIkit.notify("You've hired " + this.name + "!", 'succes');
-				window.alert("You've hired " + this.name + "!");
+				// window.alert("You've hired " + this.name + "!");
 			}
 		}
 	},
