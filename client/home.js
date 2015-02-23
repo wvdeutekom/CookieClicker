@@ -76,8 +76,9 @@ Template.building.events ({
 				Squad.update({_id: squad._id},{
 					$inc: increment
 				});
-				alert("You've hired " + this.name + "!");
-				// UIkit.notify("You've hired " + this.name + "!",'success');
+				UIkit.notify("<i class='uk-icon-check'></i> Message with an icon...");
+				// UIkit.notify("You've hired " + this.name + "!", 'succes');
+				window.alert("You've hired " + this.name + "!");
 			}
 		}
 	}
@@ -101,6 +102,11 @@ Template.building.helpers ({
 	}
 });
 
+
+// Meteor.startup(function () {    
+    console.log("hallo daar");
+    UIkit.notify("<i class='uk-icon-check'></i> Message with an icon...");
+// });
 
 
 // At the bottom of the client code

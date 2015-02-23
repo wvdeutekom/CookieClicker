@@ -8,7 +8,8 @@ meteor-platform
 autopublish
 insecure
 jquery
-mrt:uikit
 accounts-ui
 accounts-password
 accounts-facebook
+meteorhacks:kadira
+pwldp:uikit-2
