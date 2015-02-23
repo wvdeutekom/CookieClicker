@@ -76,10 +76,26 @@ Template.building.events ({
 				Squad.update({_id: squad._id},{
 					$inc: increment
 				});
-				UIkit.notify("<i class='uk-icon-check'></i> Message with an icon...");
+				// UIkit.notify("<i class='uk-icon-check'></i> Message with an icon...");
 				// UIkit.notify("You've hired " + this.name + "!", 'succes');
 				window.alert("You've hired " + this.name + "!");
 			}
+		}
+	},
+	"click .building-sell-button": function () {
+		if(Meteor.user()){
+			var squad = Squad.findOne({_id: Meteor.user().squadId});
+		} else {
+			var squad = Squad.findOne({name: "Anonymous"});
+		}
+		if(squad !== undefined){
+				var increment = {
+					cookies_current: +this.calcCost()	
+				}
+				increment["buildings."+this._id] = -1;
+				Squad.update({_id: squad._id},{
+					$inc: increment
+				});
 		}
 	}
 });
@@ -103,10 +119,7 @@ Template.building.helpers ({
 });
 
 
-// Meteor.startup(function () {    
-    console.log("hallo daar");
-    UIkit.notify("<i class='uk-icon-check'></i> Message with an icon...");
-// });
+// UIkit.notify("<i class='uk-icon-check'></i> Message with an icon...");
 
 
 // At the bottom of the client code
