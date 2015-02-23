@@ -21,7 +21,11 @@ Template.clicker.helpers ({
 		} else {
 			var squad = Squad.findOne({name: "Anonymous"});
 		}
-		return squad.cookies_current;
+		if(squad !== undefined){
+			return Math.floor(squad.cookies_current);
+		} else {
+			return false;
+		}
 	},
 	total: function () {
 		if(Meteor.user()){
@@ -29,7 +33,11 @@ Template.clicker.helpers ({
 		} else {
 			var squad = Squad.findOne({name: "Anonymous"});
 		}
-		return squad.cookies_total;
+		if(squad !== undefined){
+			return Math.floor(squad.cookies_total);
+		} else {
+			return false;
+		}
 	},
 	income: function () {
 		var amount = 0;
@@ -38,10 +46,12 @@ Template.clicker.helpers ({
 		} else {
 			var squad = Squad.findOne({name: "Anonymous"});
 		}
-		for(var i in squad.buildings) {
-		  	amount += Math.round(squad.buildings[i].amount * Buildings.findOne({_id: squad.buildings[i].buildingId}).income);
+		if(squad !== undefined){
+			for(var buildingId in squad.buildings) {
+			  	amount += squad.buildings[buildingId] * Buildings.findOne({_id: buildingId}).income;
+			}
 		}
-		return amount;
+		return parseFloat(amount).toFixed(2);
 	}
 });
 
@@ -57,13 +67,18 @@ Template.building.events ({
 		} else {
 			var squad = Squad.findOne({name: "Anonymous"});
 		}
-		if(squad.cookies_current >= this.cost){
-			console.log('buy '+this.name);
-			// squad.update({_id: squad._id},{
-			// 	$inc: {
-			// 		cookies_current: -this.cost
-			// 	}
-			// });
+		if(squad !== undefined){
+			if(squad.cookies_current >= this.calcCost()){
+				var increment = {
+					cookies_current: -this.calcCost()	
+				}
+				increment["buildings."+this._id] = 1;
+				Squad.update({_id: squad._id},{
+					$inc: increment
+				});
+				alert("You've hired " + this.name + "!");
+				// UIkit.notify("You've hired " + this.name + "!",'success');
+			}
 		}
 	}
 });
@@ -74,10 +89,8 @@ Template.building.helpers ({
 		} else {
 			var squad = Squad.findOne({name: "Anonymous"});
 		}
-		for(var i in squad.buildings) {
-			if(squad.buildings[i].buildingId == this._id){
-				return squad.buildings[i].amount;
-			}
+		if(squad !== undefined){
+			return squad.buildings[this._id];
 		}
 	},
 	isBuyEnabled: function () {
