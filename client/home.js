@@ -1,9 +1,20 @@
+Deps.autorun(function(){
+  Meteor.subscribe('userData');
+});
+
 Template.home.events ({
 	"click #createSquadButton": function () {
-		var squadId = Meteor.call('createSquad', $('#newSquadName').val(), function(){
-			Meteor.users.update({_id: Meteor.userId()}, {$set:{squadId: squadId}});
-			UIkit.notify("<i class='uk-icon-check'></i> You've created a squad", 'success');
+		Meteor.call('createSquad', $('#newSquadName').val(), function(error, squadId){
+			if(error){
+				UIkit.notify("<i class='uk-icon-users'></i> Failed to create a squad", 'danger');
+			} else {
+				Meteor.users.update({ _id: Meteor.userId() }, { $set: { squadId: squadId } });
+				UIkit.notify("<i class='uk-icon-users'></i> You've created a squad", 'success');
+			}
 		});
+	},
+	"click .joinSquadButton": function () {
+		joinSquad(this._id);
 	}
 });
 Template.clicker.events ({
@@ -84,7 +95,7 @@ Template.building.events ({
 				Squad.update({_id: squad._id},{
 					$inc: increment
 				});
-				UIkit.notify("<i class='uk-icon-check'></i> You've hired " + this.name + "!", 'success');
+				UIkit.notify("<i class='uk-icon-user-plus'></i> You've hired " + this.name + "!", 'success');
 			}
 		}
 	},
@@ -102,7 +113,7 @@ Template.building.events ({
 			Squad.update({_id: squad._id},{
 				$inc: increment
 			});
-			UIkit.notify("<i class='uk-icon-check'></i> You've sacked " + this.name + " and received cookies in return.", 'success');
+			UIkit.notify("<i class='uk-icon-user-times'></i> You've sacked " + this.name + " and received cookies in return.", 'success');
 		}
 	}
 });
@@ -125,6 +136,12 @@ Template.building.helpers ({
 	}
 });
 
+
+Template.squadSelection.helpers ({
+	squads: function () {
+		return Squad.find({ name: { $ne: "Anonymous" } });
+	}
+});
 
 // UIkit.notify("<i class='uk-icon-check'></i> Message with an icon...");
 

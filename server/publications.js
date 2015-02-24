@@ -12,25 +12,33 @@ Meteor.methods({
 		Buildings.find().forEach(function(building) {
 		  	squad.buildings[building._id] = 0;
 		});
-		Squad.insert(squad, function(error, id){
-			return id;
-		});
+		return Squad.insert(squad);
 	},
 	applyIncome: function() {
-		var amount = parseFloat("0.0000");
-		if(Meteor.user()){
-			var squad = Squad.findOne({_id: Meteor.user().squadId});
-		} else {
-			var squad = Squad.findOne({name: "Anonymous"});
-		}
-		for(var buildingId in squad.buildings) {
-		  	amount += parseFloat(squad.buildings[buildingId] * Buildings.findOne({_id: buildingId}).income);
-		}
-		Squad.update({_id: squad._id},{
-			$inc: {
-				cookies_current: amount,
-				cookies_total: amount
+		Squad.find().forEach(function(squad) {
+			var amount = parseFloat("0.0000");
+			for(var buildingId in squad.buildings) {
+			  	amount += parseFloat(squad.buildings[buildingId] * Buildings.findOne({_id: buildingId}).income);
 			}
+			Squad.update({_id: squad._id},{
+				$inc: {
+					cookies_current: amount,
+					cookies_total: amount
+				}
+			});
 		});
+	}
+});
+
+Meteor.publish('userData', function() {
+  if(!this.userId) return null;
+  return Meteor.users.find(this.userId, {fields: {
+    squadId: 1,
+  }});
+});
+
+Meteor.users.allow({
+	'update': function(id, doc){
+		return true;
 	}
 });
