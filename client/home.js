@@ -2,7 +2,13 @@ Deps.autorun(function(){
   Meteor.subscribe('userData');
 });
 
-Template.home.events ({
+Template.squadSelection.helpers ({
+	squads: function () {
+		return Squad.find({ name: { $ne: "Anonymous" } });
+	}
+});
+
+Template.squadSelection.events ({
 	"click #createSquadButton": function () {
 		Meteor.call('createSquad', $('#newSquadName').val(), function(error, squadId){
 			if(error){
@@ -13,8 +19,19 @@ Template.home.events ({
 			}
 		});
 	},
-	"click .joinSquadButton": function () {
-		joinSquad(this._id);
+});
+Template.squad.events ({
+	"click .squad-join-button": function () {
+		var code = false;
+		if(this.private){
+			console.log('Require code');
+		}
+		if (this.private == 0 || this.private == 1 && this.code == code){
+			Meteor.users.update({ _id: Meteor.userId() }, { $set: { squadId: this._id } });
+			UIkit.notify("<i class='uk-icon-users'></i> You've joined a squad", 'success');
+		} else {
+			UIkit.notify("<i class='uk-icon-users'></i> Failed to join a squad", 'danger');
+		}
 	}
 });
 Template.clicker.events ({
@@ -137,11 +154,6 @@ Template.building.helpers ({
 });
 
 
-Template.squadSelection.helpers ({
-	squads: function () {
-		return Squad.find({ name: { $ne: "Anonymous" } });
-	}
-});
 
 // UIkit.notify("<i class='uk-icon-check'></i> Message with an icon...");
 
