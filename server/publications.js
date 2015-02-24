@@ -20,6 +20,7 @@ Meteor.methods({
 			for(var buildingId in squad.buildings) {
 			  	amount += parseFloat(squad.buildings[buildingId] * Buildings.findOne({_id: buildingId}).income);
 			}
+			amount = amount / 10;
 			Squad.update({_id: squad._id},{
 				$inc: {
 					cookies_current: amount,
