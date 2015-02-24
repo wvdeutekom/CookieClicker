@@ -76,9 +76,7 @@ Template.building.events ({
 				Squad.update({_id: squad._id},{
 					$inc: increment
 				});
-				// UIkit.notify("<i class='uk-icon-check'></i> Message with an icon...");
-				// UIkit.notify("You've hired " + this.name + "!", 'succes');
-				// window.alert("You've hired " + this.name + "!");
+				UIkit.notify("<i class='uk-icon-check'></i> You've hired " + this.name + "!", 'success');
 			}
 		}
 	},
@@ -88,14 +86,15 @@ Template.building.events ({
 		} else {
 			var squad = Squad.findOne({name: "Anonymous"});
 		}
-		if(squad !== undefined){
-				var increment = {
-					cookies_current: +this.calcCost()	
-				}
-				increment["buildings."+this._id] = -1;
-				Squad.update({_id: squad._id},{
-					$inc: increment
-				});
+		if(squad !== undefined && squad.buildings[this._id] > 0){
+			var increment = {
+				cookies_current: +this.calcCost()/2	
+			}
+			increment["buildings."+this._id] = -1;
+			Squad.update({_id: squad._id},{
+				$inc: increment
+			});
+			UIkit.notify("<i class='uk-icon-check'></i> You've sacked " + this.name + " and received cookies in return.", 'success');
 		}
 	}
 });
