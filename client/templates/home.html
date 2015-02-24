@@ -11,7 +11,7 @@
 		{{> mainMenu}}
         <div class="uk-alert uk-alert-warning">
             <h3>This website is still under development.</h3>
-            <p>Please be aware that any progress may be lost anytime due to our development, when there wil be a stable version we'll remove this message. Ofcourse we'll try to avoid losing any data when possible.</p>
+            <p>Please be aware that any progress may be lost anytime due to our development. Ofcourse we'll try to avoid losing any user progress when possible.</p>
         </div>
 	    <h1>Welcome to CookieBattle.net</h1>
         {{#if currentUser}}
@@ -20,19 +20,23 @@
                 <p>The world is full of danger, sadness, inequality and ofcourse cookies. So you better become part of a squad so you have some allies in the harh wold of cookies.</p>
                 <button class="uk-button uk-button-large uk-button-primary uk-animation-scale" data-uk-toggle="{target: '#createSquad'}">Create a squad</button>
                 <button class="uk-button uk-button-large uk-button-success uk-animation-scale" data-uk-toggle="{target: '#joinSquad'}">Join a squad</button>
-                <div id="createSquad" class="uk-form uk-form-horizontal uk-hidden">
+            </div>
+            <br/>
+            <div class="uk-clearfix"></div>
+            <div id="createSquad" class="uk-container-center uk-width-1-2 uk-panel uk-panel-box">
+                <div class="uk-form uk-form-horizontal">
                     <div class="uk-form-row">
                         <label class="uk-form-label" for="newSquadName">Squad Name</label>
                         <div class="uk-form-controls">
                             <input type="text" id="newSquadName" placeholder="Squad Name">
                         </div>
                     </div>
-                    <div class="uk-form-row">
-                        <button class="uk-button uk-button-success">Create</button>
+                    <div class="uk-form-row uk-text-center">
+                        <button id="createSquadButton" class="uk-button uk-button-success">Create</button>
                     </div>
                 </div>
-                <div id="joinSquad">
-                </div>
+            </div>
+            <div id="joinSquad">
             </div>
         </div>
         {{else}}

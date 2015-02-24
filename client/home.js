@@ -1,3 +1,11 @@
+Template.home.events ({
+	"click #createSquadButton": function () {
+		var squadId = Meteor.call('createSquad', $('#newSquadName').val(), function(){
+			Meteor.users.update({_id: Meteor.userId()}, {$set:{squadId: squadId}});
+			UIkit.notify("<i class='uk-icon-check'></i> You've created a squad", 'success');
+		});
+	}
+});
 Template.clicker.events ({
 	"click #clickerup": function () {
 		if(Meteor.user()){
