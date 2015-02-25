@@ -1,0 +1,8 @@
+<template name="store">
+    <h2>Recruitment Agency</h2>
+    <div class="uk-grid uk-grid-small" data-uk-grid-margin data-uk-grid-match="{target:'.uk-panel'}">
+    {{#each buildings}}
+        {{> building}}
+    {{/each}}
+    </div>
+</template>

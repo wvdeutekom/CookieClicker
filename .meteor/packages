@@ -12,3 +12,4 @@ accounts-ui
 accounts-password
 accounts-facebook
 meteorhacks:kadira
+iron:router

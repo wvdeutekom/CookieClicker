@@ -1,0 +1,27 @@
+<template name="building">
+    <div class="uk-width-medium-1-2 uk-margin-bottom">
+        <div class="uk-panel uk-panel-box">
+            <div class="uk-width-1-2 uk-float-left">
+                <div class="uk-thumbnail">
+                    <img src="img/buildings/{{image}}" alt="{{name}}">
+                    <div class="uk-thumbnail-caption">{{name}}</div>
+                </div>
+            </div>
+            <div class="uk-width-1-2 uk-float-left" style="padding:10px;">
+                <p>{{description}}</p>
+            </div>
+            <div class="uk-clearfix"></div>
+            <div class="uk-width-1-1 uk-alert uk-clearfix">
+                <div class="uk-width-3-4 uk-text-left uk-float-left">
+                    <p>Generates {{income}} cookies per second</p>
+                    <p>Hired: <span class="uk-badge">{{hasBuildings _id }}</span></p>
+                    <p>Salary: <span class="uk-badge uk-badge-danger">{{calcCost}}</span> cookies</p>
+                </div>
+                <div class="uk-width-1-4 uk-float-left">
+                    <button type="button" class="building-buy-button uk-margin-bottom uk-button uk-button-success" {{isBuyEnabled}} id="    {{_id}}" ><i class="uk-icon-user-plus"></i> Hire</button>
+                    <button type="button" class="building-sell-button uk-margin-bottom uk-button uk-button-danger" {{isSellEnabled}} id="    {{_id}}" ><i class="uk-icon-user-times"></i> Sack</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
