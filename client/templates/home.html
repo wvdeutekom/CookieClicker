@@ -2,18 +2,21 @@
   <title>cookieclicker</title>
 </head>
 
+
+<!-- This is now rendered by iron.router when user navigates to "/"
 <body>
-	{{> home}}
-</body>
+    {{> home}}
+</body> -->
+
 
 <template name="home">
-  	<div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
-		{{> mainMenu}}
+    <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
+        {{> mainMenu}}
         <div class="uk-alert uk-alert-warning">
             <h3>This website is still under development.</h3>
             <p>Please be aware that any progress may be lost anytime due to our development. Ofcourse we'll try to avoid losing any user progress when possible.</p>
         </div>
-	    <h1>Welcome to CookieBattle.net</h1>
+        <h1>Welcome to CookieBattle.net</h1>
         {{#if currentUser}}
             {{#if currentUser.squadId}}
                 <div class="uk-grid">
@@ -38,7 +41,7 @@
         </div>
         {{/if}}
     </div>
-	{{> mobileMenu}}  
+    {{> mobileMenu}}  
 </template>
 
 <template name="clicker">
