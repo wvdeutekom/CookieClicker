@@ -1,6 +1,10 @@
 # Cookiebattle.net
 A meteor built cookieclicker, because we like cookies. And clicking. Build it and they will come.
 
+### Routing
+We use Iron.Router, see [the github page] for more information.
+[the github page]: https://github.com/iron-meteor/iron-router
+
 ### Where did you get those awesome celebrity pictures?
 Take a look at [Jiayibingding]'s movie-fans deviant art page, pretty awesome stuff!
 [Jiayibingding]: http://jiayibingding.deviantart.com/gallery/37930239/MOVIE-FANS
